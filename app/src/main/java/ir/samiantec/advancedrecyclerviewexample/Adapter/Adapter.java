@@ -90,10 +90,11 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         int sectionIndex = 0, itemIndex = adapterPosition;
         for (int i = 0; i < sectionList.size(); i++) {
             itemIndex--;
-            if (itemIndex > sectionList.get(i).getList().size()) {
-                sectionIndex++;
-                itemIndex -= sectionList.get(i).getList().size();
+            if (itemIndex < sectionList.get(i).getList().size()) {
+                break;
             }
+            sectionIndex++;
+            itemIndex -= sectionList.get(i).getList().size();
         }
         return new NumPair(sectionIndex, itemIndex);
     }
