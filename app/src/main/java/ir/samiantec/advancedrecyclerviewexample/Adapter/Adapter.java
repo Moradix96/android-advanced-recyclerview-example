@@ -89,6 +89,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private NumPair findPosition(int adapterPosition) {
         int sectionIndex = 0, itemIndex = adapterPosition;
         for (int i = 0; i < sectionList.size(); i++) {
+            itemIndex--;
             if (itemIndex > sectionList.get(i).getList().size()) {
                 sectionIndex++;
                 itemIndex -= sectionList.get(i).getList().size();
