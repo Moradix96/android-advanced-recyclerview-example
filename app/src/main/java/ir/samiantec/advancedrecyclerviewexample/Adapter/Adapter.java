@@ -1,5 +1,6 @@
 package ir.samiantec.advancedrecyclerviewexample.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +33,11 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (viewType == 0) { //Header
             final View headerView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header, parent, false);
             return new HeaderViewHolder(headerView);
-        } else { //Item
+        } else if (viewType == 1) { //Item
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
             return new ItemViewHolder(itemView);
+        } else {
+            return null;
         }
     }
 
@@ -43,7 +46,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (holder instanceof HeaderViewHolder) {
             final HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
             headerViewHolder.tvTitle.setText("Header " + position); //TODO
-        } else {
+        } else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             itemViewHolder.tvText.setText("Item " + position); //TODO
         }
@@ -60,9 +63,9 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //TODO Check zero sections
         int size = 0;
         for (int i = 0; i < sectionList.size(); i++) {
-            size = sectionList.get(i).getList().size();
+            size += sectionList.get(i).getList().size();
         }
-        return size + sectionList.size() - 1;
+        return size + sectionList.size();
     }
 
     /**
