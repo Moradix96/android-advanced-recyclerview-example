@@ -1,6 +1,8 @@
 package ir.samiantec.advancedrecyclerviewexample;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import java.util.List;
 
 import ir.samiantec.advancedrecyclerviewexample.Adapter.Adapter;
 import ir.samiantec.advancedrecyclerviewexample.Model.Section;
+import ir.samiantec.advancedrecyclerviewexample.MyLib.SwipeToDeleteCallback;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +45,28 @@ public class MainActivity extends AppCompatActivity {
         final Adapter adapter = new Adapter(sectionList);
 
         recyclerView.setAdapter(adapter);
+
+        final SwipeToDeleteCallback simpleItemTouchCallback = new SwipeToDeleteCallback(this) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                int position = viewHolder.getAdapterPosition();
+                try {
+                    //arrayList.remove(position);
+                    //adapter.notifyItemRemoved(position);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        final ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
 }
