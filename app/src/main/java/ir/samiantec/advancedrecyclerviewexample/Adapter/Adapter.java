@@ -43,17 +43,16 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        final NumPair numPair = findPosition(position);
+        final Section section = sectionList.get(numPair.getA());
         if (holder instanceof HeaderViewHolder) {
             final HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            headerViewHolder.tvTitle.setText("Header " + position); //TODO
+            headerViewHolder.tvTitle.setText("Header " + section.getTitle());
         } else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            itemViewHolder.tvText.setText("Item " + position); //TODO
+            itemViewHolder.tvText.setText("Item " + section.getList().get(numPair.getB()));
         }
-        /*final String item = list.get(position);
-        holder.tv.setText(item.getValue());
-
-        holder.itemView.setOnClickListener(v -> {
+        /*holder.itemView.setOnClickListener(v -> {
             if (selectItemListener != null) selectItemListener.onSelect(item);
         });*/
     }
