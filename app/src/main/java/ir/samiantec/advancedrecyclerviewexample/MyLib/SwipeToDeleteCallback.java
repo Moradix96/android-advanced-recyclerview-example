@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ir.samiantec.advancedrecyclerviewexample.Adapter.Adapter;
 import ir.samiantec.advancedrecyclerviewexample.R;
 
 public abstract class SwipeToDeleteCallback extends ItemTouchHelper.Callback {
@@ -37,7 +38,10 @@ public abstract class SwipeToDeleteCallback extends ItemTouchHelper.Callback {
 
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        return makeMovementFlags(0, ItemTouchHelper.LEFT);
+        if (viewHolder instanceof Adapter.ItemViewHolder)
+            return makeMovementFlags(0, ItemTouchHelper.LEFT);
+        else
+            return makeMovementFlags(0, ItemTouchHelper.ACTION_STATE_IDLE);
     }
 
     @Override
