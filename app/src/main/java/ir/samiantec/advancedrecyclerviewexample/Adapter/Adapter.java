@@ -59,7 +59,6 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        //TODO Check zero sections
         int size = 0;
         for (int i = 0; i < sectionList.size(); i++) {
             size += sectionList.get(i).getList().size();
