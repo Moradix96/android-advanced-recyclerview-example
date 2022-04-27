@@ -47,10 +47,10 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         final Section section = sectionList.get(numPair.getA());
         if (holder instanceof HeaderViewHolder) {
             final HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
-            headerViewHolder.tvTitle.setText("Header " + section.getTitle());
+            headerViewHolder.tvTitle.setText(section.getTitle());
         } else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            itemViewHolder.tvText.setText("Item " + section.getList().get(numPair.getB()));
+            itemViewHolder.tvText.setText(section.getList().get(numPair.getB()));
         }
         /*holder.itemView.setOnClickListener(v -> {
             if (selectItemListener != null) selectItemListener.onSelect(item);
