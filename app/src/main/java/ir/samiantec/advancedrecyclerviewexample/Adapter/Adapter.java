@@ -1,6 +1,5 @@
 package ir.samiantec.advancedrecyclerviewexample.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,14 @@ import ir.samiantec.advancedrecyclerviewexample.R;
 
 public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final List<Section> sectionList;
+    private Event eventListener;
 
     public Adapter(@NonNull List<Section> sectionList) {
         this.sectionList = sectionList;
+    }
+
+    public void setEventListener(Event eventListener) {
+        this.eventListener = eventListener;
     }
 
     @Override
@@ -51,10 +55,11 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if (holder instanceof ItemViewHolder) {
             final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
             itemViewHolder.tvText.setText(section.getList().get(numPair.getB()));
+            holder.itemView.setOnClickListener(v -> {
+                if (eventListener != null)
+                    eventListener.onClick(section.getList().get(numPair.getB()));
+            });
         }
-        /*holder.itemView.setOnClickListener(v -> {
-            if (selectItemListener != null) selectItemListener.onSelect(item);
-        });*/
     }
 
     @Override
@@ -97,6 +102,12 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return new NumPair(sectionIndex, itemIndex);
     }
 
+    public interface Event {
+        void onClick(String item);
+
+        void onDelete(NumPair position, String item);
+    }
+
     private class HeaderViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle;
 
@@ -114,5 +125,4 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tvText = view.findViewById(R.id.tvText);
         }
     }
-
 }
