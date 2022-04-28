@@ -104,8 +104,6 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public interface Event {
         void onClick(String item);
-
-        void onDelete(NumPair position, String item);
     }
 
     private class HeaderViewHolder extends RecyclerView.ViewHolder {
