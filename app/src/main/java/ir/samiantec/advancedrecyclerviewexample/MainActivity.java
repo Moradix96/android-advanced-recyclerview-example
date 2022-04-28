@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.samiantec.advancedrecyclerviewexample.Adapter.Adapter;
+import ir.samiantec.advancedrecyclerviewexample.Model.NumPair;
 import ir.samiantec.advancedrecyclerviewexample.Model.Section;
 import ir.samiantec.advancedrecyclerviewexample.MyLib.SwipeToDeleteCallback;
 
@@ -53,11 +54,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                int position = viewHolder.getAdapterPosition();
+                final int PositionIndex = viewHolder.getAdapterPosition();
+                final NumPair positionPair = adapter.findPosition(PositionIndex);
+
                 try {
-                    //TODO Implement delete method
-                    //arrayList.remove(position);
-                    //adapter.notifyItemRemoved(position);
+                    //TODO Call delete task
+                    sectionList.get(positionPair.getA()).getList().remove(positionPair.getB());
+                    adapter.notifyItemRemoved(PositionIndex);
+                    //TODO Remove category if no item remains
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
